@@ -5,10 +5,11 @@ import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
-public class DetectFaceDemo {
+public class BlurFaceDemo {
 	private CascadeClassifier faceDetector = new CascadeClassifier(getClass().getResource("/lbpcascade_frontalface.xml").getPath().substring(1));
 	
 	
@@ -16,18 +17,19 @@ public class DetectFaceDemo {
 		System.out.println("\nRunning DetectFaceDemo");
 		// Create a face detector from the cascade file in the resources
 		// Detect faces in the image.
-		// MatOfRect is a special container class for Rect.
+		// MatOfRect is a special container clashttps://github.com/robbystoned/OpenCVSamples for Rect.
 		MatOfRect faceDetections = new MatOfRect();
 		faceDetector.detectMultiScale(image, faceDetections);
-		System.out.println(String.format("Detected %s faces", faceDetections.toArray().length));
+		System.out.println(String.format("Detected %s faces", faceDetections.toArray().length));	
 		// Draw a bounding box around each face.
+		
 		for (Rect rect : faceDetections.toArray()) {
-			Imgproc.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
-					new Scalar(0, 255, 0));
+			//Imgproc.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
+			//		new Scalar(0, 255, 0));
+			
+			Mat mask = image.submat(rect);
+			Imgproc.blur(mask, mask, new Size(55, 55));			
 		}
-		// Save the visualized detection.
-		String filename = "faceDetection.png";
-		System.out.println(String.format("Writing %s", filename));
-		 return image;
+		return image;
 	}
 }

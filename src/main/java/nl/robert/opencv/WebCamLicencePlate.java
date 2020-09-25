@@ -12,21 +12,24 @@ import javax.swing.JPanel;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.videoio.VideoCapture;        
+import org.opencv.videoio.VideoCapture;
+
+import net.sourceforge.tess4j.TesseractException;
+import nl.robert.opencv.model.LicencePlate;        
        
 
-public class WebCam {
+public class WebCamLicencePlate {
 
-    public static void main (String args[]) throws InterruptedException{
+    public static void main (String args[]) throws TesseractException, Exception{
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-       WebCam camApp = new WebCam();
+      WebCamLicencePlate camApp = new WebCamLicencePlate();
        camApp.runApp();
     }
     
     
     
     
-    public void runApp() {
+    public void runApp() throws TesseractException, Exception {
     	 VideoCapture camera = new VideoCapture(0);
 
          Mat frame = new Mat();
@@ -36,19 +39,26 @@ public class WebCam {
          jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
          JPanel panel = new JPanel();
+         JLabel label = new JLabel();
          panel.setPreferredSize(new Dimension(800, 800));
          JLabel vidpanel = new JLabel();
          panel.add(vidpanel);
+         panel.add(label);
          jframe.setContentPane(panel);
          jframe.setLocationByPlatform(true);
          jframe.pack();
          jframe.setVisible(true);
 
-         DetectFaceDemo demo = new DetectFaceDemo();
-         
+        
+         DetectLicencePlate demo = new DetectLicencePlate();
          while (true) {
              if (camera.read(frame)) {             	
-                 ImageIcon image = new ImageIcon(MatToBufferedImage(demo.run(frame)));
+                 LicencePlate licencePlate = demo.run(frame);
+				ImageIcon image = new ImageIcon(MatToBufferedImage(licencePlate.getImage()));
+                if(licencePlate.isDutchLicencePlate()) {
+                	label.setText(licencePlate.getNormalizedLicencePlate());
+                	label.repaint();
+                }
                  vidpanel.setIcon(image);
                  vidpanel.repaint();
 
