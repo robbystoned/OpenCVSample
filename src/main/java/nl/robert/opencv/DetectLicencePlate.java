@@ -54,7 +54,7 @@ public class DetectLicencePlate {
 			Imgproc.rectangle(greyImage, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
 					new Scalar(0, 255, 0));
 			licence = greyImage.submat(rect);
-			Imgproc.threshold(licence, licence, 150, 255, Imgproc.THRESH_BINARY);
+			Imgproc.threshold(licence, licence, 0, 255, Imgproc.THRESH_OTSU);
 			String licencePlateText = tesseract1.doOCR(Mat2BufferedImage(licence));
 			licencePlate.addCroppedImage(licence);
 			isDutchLicencePlate(licencePlateText, licencePlate);
