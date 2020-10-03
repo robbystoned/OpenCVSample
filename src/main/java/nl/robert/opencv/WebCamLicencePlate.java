@@ -14,8 +14,7 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
 
-import net.sourceforge.tess4j.TesseractException;
-import nl.robert.opencv.model.LicencePlate;        
+import net.sourceforge.tess4j.TesseractException;        
        
 
 public class WebCamLicencePlate {
@@ -42,8 +41,10 @@ public class WebCamLicencePlate {
          JLabel label = new JLabel();
          panel.setPreferredSize(new Dimension(800, 800));
          JLabel vidpanel = new JLabel();
+         JLabel plates = new JLabel();
          panel.add(vidpanel);
          panel.add(label);
+         panel.add(plates);
          jframe.setContentPane(panel);
          jframe.setLocationByPlatform(true);
          jframe.pack();
@@ -61,6 +62,11 @@ public class WebCamLicencePlate {
                 }
                  vidpanel.setIcon(image);
                  vidpanel.repaint();
+                 
+                 for(Mat croppedImage: licencePlate.getCroppedImage()) {
+                	 ImageIcon icon = new ImageIcon(MatToBufferedImage(croppedImage));
+                	 plates.setIcon(icon);
+                 }
 
              }
          }

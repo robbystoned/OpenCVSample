@@ -19,47 +19,46 @@ import org.opencv.objdetect.CascadeClassifier;
 
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
-import nl.robert.opencv.model.LicencePlate;
 
 public class DetectLicencePlate {
-	private CascadeClassifier faceDetector = new CascadeClassifier(getClass().getResource("/cascade.xml").getPath().substring(1));
+	private CascadeClassifier faceDetector = new CascadeClassifier(getClass().getResource("/eu.xml").getPath().substring(1));
 	private Tesseract tesseract1 = new Tesseract();
 	
 	public DetectLicencePlate() {
 		tesseract1.setTessVariable("user_defined_dpi", "600");
-		//tesseract1.setTessVariable("tessedit_char_whitelist", "BCDFGHJKLMNPQRSTVWXYZ0123456789-");
+		tesseract1.setTessVariable("tessedit_char_whitelist", "BCDFGHJKLMNPQRSTVWXYZ0123456789-");
 		//tesseract1.setTessVariable("language_model_penalty_non_freq_dict_word", "1");
 		//tesseract1.setTessVariable("language_model_penalty_non_dict_word ", "1");
 		//tesseract1.setTessVariable("load_system_dawg", "0");
-		tesseract1.setLanguage("leu");
-		tesseract1.setDatapath("C:\\langdata-master");
+		//tesseract1.setPageSegMode(1);
+		tesseract1.setOcrEngineMode(3);
+		tesseract1.setLanguage("eng");
+		tesseract1.setDatapath("./tessdata");
+		 System.out.println("Working Directory = " + System.getProperty("user.dir"));
 	}
 	public LicencePlate run(Mat image) throws TesseractException, Exception {
-		//System.out.println("\nRunning DetectFaceDemo");
-		// Create a face detector from the cascade file in the resources
-		// Detect faces in the image.
-		// MatOfRect is a special container class for Rect.
+		
+		Mat greyImage = new Mat();
+		
+		Imgproc.cvtColor(image, greyImage, Imgproc.COLOR_BGR2GRAY);
 		MatOfRect faceDetections = new MatOfRect();
-		faceDetector.detectMultiScale(image, faceDetections);
+		faceDetector.detectMultiScale(greyImage, faceDetections);
 		//System.out.println(String.format("Detected %s faces", faceDetections.toArray().length));
 		// Draw a bounding box around each face.
 		Mat licence = null;
 
 		LicencePlate licencePlate = new LicencePlate();
+		licencePlate.setImage(image);
 	
 		for (Rect rect : faceDetections.toArray()) {
-			Imgproc.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
+			Imgproc.rectangle(greyImage, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
 					new Scalar(0, 255, 0));
-			licence = image.submat(rect);
+			licence = greyImage.submat(rect);
+			Imgproc.threshold(licence, licence, 150, 255, Imgproc.THRESH_BINARY);
 			String licencePlateText = tesseract1.doOCR(Mat2BufferedImage(licence));
-			licencePlate.setImage(licence);
+			licencePlate.addCroppedImage(licence);
 			isDutchLicencePlate(licencePlateText, licencePlate);
 		}
-		
-		if(licencePlate.getImage() == null) {
-			licencePlate.setImage(image);
-		}
-			
 		return licencePlate;
 	}
 	
