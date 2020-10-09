@@ -19,6 +19,7 @@ import org.opencv.objdetect.CascadeClassifier;
 
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import nl.robert.opencv.rwd.RDWRest;
 
 public class DetectLicencePlate {
 	private CascadeClassifier faceDetector = new CascadeClassifier(getClass().getResource("/eu.xml").getPath().substring(1));
@@ -79,7 +80,14 @@ public class DetectLicencePlate {
 		 licencePlate.setDutchLicencePlate(matcher.find());
 		 if(licencePlate.isDutchLicencePlate()) {
 			 licencePlate.setNormalizedLicencePlate(matcher.group());
+			 licencePlate.setCarDetail(lookupCarDetail(licencePlate.getNormalizedLicencePlate()));
+			 
 		 }
 		
 	}	
+	
+	private String lookupCarDetail(String licencePlate) {
+		RDWRest rdwRest = new RDWRest();
+		return rdwRest.getRDWInfo(licencePlate);
+	}
 }

@@ -1,0 +1,117 @@
+{
+	"version": "1.0",
+	"encoding": "utf-8",
+	"OPENB-VRTG-INFO": {
+		"@xmlns$xsd": "http://www.w3.org/2001/XMLSchema",
+		"@xmlns$xsi": "http://www.w3.org/2001/XMLSchema-instance",
+		"ALG-GEG": null,
+		"KENT-GEG": {
+			"KENTEKEN": "TKVV99"
+		},
+		"VRTG-STAND-GEG": {
+			"MERK-BESCHR": "FORD",
+			"TYPE-BESCHR-VTG": "TAUNUS 17 M",
+			"ACT-KLEUR-1": "Blauw",
+			"AANT-CYL": "4",
+			"CYL-INHOUD": "0",
+			"AANT-STAANPL": null,
+			"MASSA-LEEG-VRTG": "978",
+			"LAADVERMOGEN": null,
+			"MAX-MASSA-VRTG": "0",
+			"MAX-MAS-OPL-GER": null,
+			"MAX-MAS-AUT-GER": null,
+			"MAX-MAS-MID-GER": null,
+			"MAX-CONSTR-SN": null,
+			"EERSTE-INS-DAT": "19960315",
+			"EERSTE-TOEL-DAT": "19950506",
+			"REG-DAT-AANSPR": "19960316",
+			"REG-TYD-AANSPR": "1201",
+			"VERV-DAT-KEUR": null,
+			"VERZEKERD-IND": "J",
+			"STAT-WOK-IND": "N",
+			"STAT-GEST-IND": "N",
+			"VERBR-CAT-UITV": null,
+			"EEG-VAR-CODE": null,
+			"EEG-UITV-CODE": null,
+			"EEG-VRTG-CAT-KB": " /SE  /AA  /AB  /AC ",
+			"PL-VRTG-ID-NR-V": "Op bodemplaat bij rechts, rechter voorzitting",
+			"AANT-EIGEN-VRTG": "0",
+			"AANT-OPNAM-BEDR": "1",
+			"STAT-EXP-IND": "N",
+			"AANT-DEUREN": null,
+			"H-KOP-AZ-VRTG": null,
+			"WIELBASIS": "260",
+			"VERV-DAT-TACH": null,
+			"LENGTE": null,
+			"BREEDTE": null,
+			"AANT-ASSEN": "2",
+			"AANT-WIELEN": "4",
+			"AFW-MAX-SNELH": null,
+			"MAS-BEDR-KL-MIN": null,
+			"MAS-BEDR-KL-MAX": null,
+			"MAX-MAS-T-MAX": null,
+			"MAX-MAS-T-MIN": null,
+			"SUB-CAT-NL": null,
+			"SUB-CAT-NL-OMS": null
+		},
+		"CARROS-UITV-TAB": {
+			"CARROS-UITV-GEG": [
+				{
+					"CARROS-VNR": "1",
+					"TYPE-CARROS-EU": "SE",
+					"TYPE-CARROS-OMS": "Caravan (SE)"
+				},
+				{
+					"CARROS-VNR": "2",
+					"TYPE-CARROS-EU": "AA",
+					"TYPE-CARROS-OMS": "Sedan (AA)"
+				},
+				{
+					"CARROS-VNR": "3",
+					"TYPE-CARROS-EU": "AB",
+					"TYPE-CARROS-OMS": "Hatchback (AB)"
+				},
+				{
+					"CARROS-VNR": "4",
+					"TYPE-CARROS-EU": "AC",
+					"TYPE-CARROS-OMS": "Stationwagen (AC)"
+				}
+			]
+		},
+		"BPM-GEG": {
+			"BPM-BEDRAG": "0"
+		},
+		"VRTG-TERUGR-GEG": {
+			"TERUGR-STAT-OMS": "Geen terugroepactie(s) geregistreerd"
+		},
+		"BYZ-VRTG-TAB": null,
+		"BR-VRTG-TAB": null,
+		"AS-VRTG-TAB": {
+			"AS-VRTG-GEG": [
+				{
+					"AS-NR-VRTG": "1",
+					"MAX-LAST-AS": "0",
+					"PLAATS-AS-CODE": "V"
+				},
+				{
+					"AS-NR-VRTG": "2",
+					"MAX-LAST-AS": "0",
+					"PLAATS-AS-CODE": "A"
+				}
+			]
+		},
+		"SUB-CAT-EU-TAB": null,
+		"TEL-STAND-GEG": null,
+		"TERUGR-ACT-TAB": {
+			"TERUGR-ACT-GEG": {
+				"STAT-V-TER-OMS": "Geen terugroepactie(s) geregistreerd",
+				"B-DAT-TERUG-RDW": "Niet geregistreerd",
+				"TERUGR-RIS-TAB": {
+					"TERUGR-RIS-GEG": {
+						"TERUGR-RIS-OMS": "Niet geregistreerd"
+					}
+				}
+			}
+		}
+	}
+}

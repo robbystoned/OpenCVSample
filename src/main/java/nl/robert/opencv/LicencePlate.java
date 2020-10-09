@@ -8,6 +8,16 @@ import org.opencv.core.Mat;
 public class LicencePlate {
 	private boolean isDutchLicencePlate;
 	private String normalizedLicencePlate;
+	private String carDetail;
+	
+	public String getCarDetail() {
+		return carDetail;
+	}
+
+	public void setCarDetail(String carDetail) {
+		this.carDetail = carDetail;
+	}
+
 	private Mat image;
 	private List<Mat> croppedImage = new ArrayList<>();
 
