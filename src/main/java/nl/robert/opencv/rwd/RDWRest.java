@@ -29,7 +29,6 @@ public class RDWRest
 
             Properties appProps = new Properties();
             appProps.load(RDWRest.class.getClassLoader().getResourceAsStream("credentials.properties"));
-            System.out.println(appProps.getProperty("rdwkey"));
             URI uri = builder.build();
             HttpPost request = new HttpPost(uri);
             request.setHeader("Content-Type", "application/json");

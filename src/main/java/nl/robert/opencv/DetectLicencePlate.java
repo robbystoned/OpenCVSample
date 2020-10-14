@@ -38,7 +38,6 @@ public class DetectLicencePlate {
 		 System.out.println("Working Directory = " + System.getProperty("user.dir"));
 	}
 	public LicencePlate run(Mat image) throws TesseractException, Exception {
-		
 		Mat greyImage = new Mat();
 		
 		Imgproc.cvtColor(image, greyImage, Imgproc.COLOR_BGR2GRAY);
@@ -47,7 +46,6 @@ public class DetectLicencePlate {
 		//System.out.println(String.format("Detected %s faces", faceDetections.toArray().length));
 		// Draw a bounding box around each face.
 		Mat licence = null;
-
 		LicencePlate licencePlate = new LicencePlate();
 		licencePlate.setImage(image);
 	
