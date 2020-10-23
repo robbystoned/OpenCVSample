@@ -1,4 +1,4 @@
-package nl.robert.opencv;
+package nl.robert.opencv.anpr;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package nl.robert.opencv;
+package nl.robert.opencv.anpr;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

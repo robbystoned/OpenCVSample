@@ -1,4 +1,4 @@
-package nl.robert.opencv;
+package nl.robert.opencv.anpr;
 
 import java.awt.Button;
 import java.awt.Dimension;
