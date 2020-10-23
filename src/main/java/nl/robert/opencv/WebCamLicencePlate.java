@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
+import org.opencv.videoio.Videoio;
 
 import net.sourceforge.tess4j.TesseractException;        
        
@@ -83,6 +84,8 @@ public class WebCamLicencePlate {
 	private void processWebcam() throws TesseractException, Exception {
 	    //webcam video stream 
 	    VideoCapture camera = new VideoCapture(0);
+	    boolean wset = camera.set(Videoio.CAP_PROP_FRAME_WIDTH, 1280);
+	    boolean hset = camera.set(Videoio.CAP_PROP_FRAME_HEIGHT, 720);
 	    Mat frame = new Mat();
 	    //image processor
 	    DetectLicencePlate demo = new DetectLicencePlate();
@@ -101,7 +104,7 @@ public class WebCamLicencePlate {
 						b.setLabel("continue");
 					}
 					vidpanel.setIcon(image);
-					vidpanel.revalidate();m
+					vidpanel.revalidate();
 					vidpanel.repaint();
 					
 					for (Mat croppedImage : licencePlate.getCroppedImage()) {

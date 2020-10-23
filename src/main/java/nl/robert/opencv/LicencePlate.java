@@ -7,8 +7,19 @@ import org.opencv.core.Mat;
 
 public class LicencePlate {
 	private boolean isDutchLicencePlate;
+	private String rawLicencePlate;
 	private String normalizedLicencePlate;
 	private String carDetail;
+	private Mat image;
+	private List<Mat> croppedImage = new ArrayList<>();
+	
+	public String getRawLicencePlate() {
+		return rawLicencePlate;
+	}
+
+	public void setRawLicencePlate(String rawLicencePlate) {
+		this.rawLicencePlate = rawLicencePlate;
+	}
 	
 	public String getCarDetail() {
 		return carDetail;
@@ -18,10 +29,6 @@ public class LicencePlate {
 		this.carDetail = carDetail;
 	}
 
-	private Mat image;
-	private List<Mat> croppedImage = new ArrayList<>();
-
-	
 	public List<Mat> getCroppedImage() {
 		return croppedImage;
 	}
