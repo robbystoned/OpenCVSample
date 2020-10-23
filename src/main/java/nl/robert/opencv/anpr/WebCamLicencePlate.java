@@ -84,8 +84,8 @@ public class WebCamLicencePlate {
 	private void processWebcam() throws TesseractException, Exception {
 	    //webcam video stream 
 	    VideoCapture camera = new VideoCapture(0);
-	    boolean wset = camera.set(Videoio.CAP_PROP_FRAME_WIDTH, 1280);
-	    boolean hset = camera.set(Videoio.CAP_PROP_FRAME_HEIGHT, 720);
+	    camera.set(Videoio.CAP_PROP_FRAME_WIDTH, 1280);
+	    camera.set(Videoio.CAP_PROP_FRAME_HEIGHT, 720);
 	    Mat frame = new Mat();
 	    //image processor
 	    DetectLicencePlate demo = new DetectLicencePlate();
