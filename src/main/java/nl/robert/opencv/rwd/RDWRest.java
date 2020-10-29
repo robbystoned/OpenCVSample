@@ -1,18 +1,17 @@
 package nl.robert.opencv.rwd;
 
-import java.io.FileInputStream;
 // // This sample uses the Apache HTTP client from HTTP Components (http://hc.apache.org/httpcomponents-client-ga/)
 import java.net.URI;
-import java.util.Properties;
+import java.util.List;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import nl.robert.opencv.rwd.model.RDWResponse;
@@ -25,31 +24,28 @@ public class RDWRest
    	 
         try
         {
-            URIBuilder builder = new URIBuilder("https://api.rdw.nl/ovi-a/version=1");
+        	//rdw wants the licence plate without the - so remove them and uppercase it to be sure.
+        	licencePlate = licencePlate.replace("-", "").toUpperCase();
+            URIBuilder builder = new URIBuilder("https://opendata.rdw.nl/resource/m9d7-ebf2.json?kenteken=" + licencePlate);
 
-            Properties appProps = new Properties();
-            appProps.load(RDWRest.class.getClassLoader().getResourceAsStream("credentials.properties"));
             URI uri = builder.build();
-            HttpPost request = new HttpPost(uri);
-            request.setHeader("Content-Type", "application/json");
-            request.setHeader("Ocp-Apim-Subscription-Key", appProps.getProperty("rdwkey"));
-            
-            //rdw wants the licence plate without the - so remove them from the string.
-            licencePlate = licencePlate.replace("-", "");
-            // Request body
-            StringEntity reqEntity = new StringEntity("{ \"KENTEKEN\": \"" + licencePlate + "\" }");
-            request.setEntity(reqEntity);
-
-            HttpResponse response = httpclient.execute(request);
-            HttpEntity entity = response.getEntity();
-
-            ObjectMapper mapper = new ObjectMapper();
-            RDWResponse result = mapper.readValue(entity.getContent(), RDWResponse.class);
            
-           return result.getOPENBVRTGINFO().getVRTGSTANDGEG().getMERKBESCHR() + " " + result.getOPENBVRTGINFO().getVRTGSTANDGEG().getTYPEBESCHRVTG();
+            HttpGet request = new HttpGet(uri);
+            request.setHeader("Content-Type", "application/json");
+            HttpResponse response = httpclient.execute(request);
+            
+            ObjectMapper mapper = new ObjectMapper();
+            String json = EntityUtils.toString(response.getEntity(), "UTF-8");
+        	List<RDWResponse> listCar = mapper.readValue(json, new TypeReference<List<RDWResponse>>(){});
+
+            RDWResponse result  = listCar.get(0);
+           
+           return result.getMerk() + " " + result.getHandelsbenaming();
+        		   //result.getOPENBVRTGINFO().getVRTGSTANDGEG().getMERKBESCHR() + " " + result.getOPENBVRTGINFO().getVRTGSTANDGEG().getTYPEBESCHRVTG();
         }
         catch (Exception e)
         {
+        	e.printStackTrace();
             return "";
         }
    }

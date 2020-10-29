@@ -9,6 +9,8 @@ import javax.imageio.ImageIO;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
+import org.opencv.core.MatOfDouble;
+import org.opencv.core.MatOfInt;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
@@ -44,18 +46,26 @@ public class DetectLicencePlate {
 		Imgproc.cvtColor(image, greyImage, Imgproc.COLOR_BGR2GRAY);
 		MatOfRect faceDetections = new MatOfRect();
 		Size msize = new Size(0,0);
-		faceDetector.detectMultiScale(greyImage, faceDetections,1.1,3, 0, msize, msize);
-		
+		//faceDetector.detectMultiScale(greyImage, faceDetections,1.1,3, 0, msize, msize);
+		MatOfInt rejectLevels = new MatOfInt();
+		MatOfDouble levelWeights = new MatOfDouble();
+		faceDetector.detectMultiScale3(greyImage, faceDetections, rejectLevels, levelWeights, 1.1, 3, 0, msize, msize, true);
 		//System.out.println(String.format("Detected %s faces", faceDetections.toArray().length));
 		// Draw a bounding box around each face.
 		Mat licence = null;
 		LicencePlate licencePlate = new LicencePlate();
 		licencePlate.setImage(image);
 
-		//double[] weights = levelWeights.toArray();
+		double[] weights;
+		
+		if (!levelWeights.empty()) {
+			weights = levelWeights.toArray();
+			System.out.println("Weight: " + weights[0]);
+		}
+		
+		int i=0;
 		for (Rect rect : faceDetections.toArray()) {
-			Imgproc.rectangle(greyImage, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
-					new Scalar(0, 255, 0));
+			Imgproc.rectangle(greyImage, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 255, 0));
 			licence = greyImage.submat(rect);
 			//System.out.println("confidence: " + weights[i]);
 			Imgproc.threshold(licence, licence, 0, 255, Imgproc.THRESH_OTSU);
@@ -64,6 +74,7 @@ public class DetectLicencePlate {
 			licencePlate.setRawLicencePlate(licencePlateText);
 			
 			validator.validateLicensePlate(licencePlate);
+			i++;
 		}
 		return licencePlate;
 	}

@@ -3,6 +3,8 @@ package nl.robert.opencv.anpr;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import nl.robert.opencv.rwd.RDWRest;
+
 public class LicencePlateValidator {
 	private static String[] licencePlateRegexes = { 
 			"^([A-Z]{2})(\\d{2})(\\d{2})$", // 1 XX-99-99 (since 1951)
@@ -42,7 +44,7 @@ public class LicencePlateValidator {
 	}
 	
 	private String lookupCarDetail(String licencePlate) {
-		//RDWRest rdwRest = new RDWRest();
-		return "";//rdwRest.getRDWInfo(licencePlate);
+		RDWRest rdwRest = new RDWRest();
+		return rdwRest.getRDWInfo(licencePlate);
 	}
 }
