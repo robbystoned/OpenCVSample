@@ -37,10 +37,15 @@ public class RDWRest
             ObjectMapper mapper = new ObjectMapper();
             String json = EntityUtils.toString(response.getEntity(), "UTF-8");
         	List<RDWResponse> listCar = mapper.readValue(json, new TypeReference<List<RDWResponse>>(){});
-
-            RDWResponse result  = listCar.get(0);
+        	
+			if (!listCar.isEmpty()) {
+				RDWResponse result = listCar.get(0);
+				return result.getMerk() + " " + result.getHandelsbenaming();
+			} else {
+				return "Car not in RDW database";
+			}
+			
            
-           return result.getMerk() + " " + result.getHandelsbenaming();
         		   //result.getOPENBVRTGINFO().getVRTGSTANDGEG().getMERKBESCHR() + " " + result.getOPENBVRTGINFO().getVRTGSTANDGEG().getTYPEBESCHRVTG();
         }
         catch (Exception e)
