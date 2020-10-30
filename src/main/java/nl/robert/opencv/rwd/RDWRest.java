@@ -21,8 +21,7 @@ public class RDWRest
      
     public String getRDWInfo(String licencePlate) {
     	HttpClient httpclient = HttpClients.createDefault();
-        try
-        {
+        try {
         	//rdw wants the licence plate without the - so remove them and uppercase it to be sure.
         	licencePlate = licencePlate.replace("-", "").toUpperCase();
             URIBuilder builder = new URIBuilder("https://opendata.rdw.nl/resource/m9d7-ebf2.json?kenteken=" + licencePlate);
@@ -43,12 +42,8 @@ public class RDWRest
 			} else {
 				return "Car not in RDW database";
 			}
-			
-           
-        		   //result.getOPENBVRTGINFO().getVRTGSTANDGEG().getMERKBESCHR() + " " + result.getOPENBVRTGINFO().getVRTGSTANDGEG().getTYPEBESCHRVTG();
         }
-        catch (Exception e)
-        {
+        catch (Exception e)         {
         	e.printStackTrace();
             return "";
         }
