@@ -20,8 +20,7 @@ public class RDWRest
 {
      
     public String getRDWInfo(String licencePlate) {
-   	 HttpClient httpclient = HttpClients.createDefault();
-   	 
+    	HttpClient httpclient = HttpClients.createDefault();
         try
         {
         	//rdw wants the licence plate without the - so remove them and uppercase it to be sure.
