@@ -1,6 +1,5 @@
 package nl.robert.opencv.rwd;
 
-// // This sample uses the Apache HTTP client from HTTP Components (http://hc.apache.org/httpcomponents-client-ga/)
 import java.net.URI;
 import java.util.List;
 
